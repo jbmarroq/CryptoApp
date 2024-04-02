@@ -1,0 +1,123 @@
+.FilmRow {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  height: 100px;
+  width: 33.333%;
+  max-height: 100vh;
+  padding: 0;
+  text-align: left;
+  margin-bottom: 2px;
+  font-size: 12pt;
+  background-color: white;
+}
+
+.actions {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+.action {
+  display: flex;
+  padding: 5px;
+  margin: 2px;
+  align-items: center;
+  justify-content: center;
+  font-size: 12pt;
+  font-weight: 800;
+  background-color: transparent;
+  border: 1px solid rgba(255, 0, 255, 0.253);
+  border-radius: 5px;
+}
+
+.action:hover {
+  background-color: rgba(32, 178, 171, 0.511);
+}
+
+.action:active {
+  background-color: rgb(40, 205, 197);
+}
+
+.filmSummary {
+  flex-grow: 1;
+  padding: 0.5em 0.5em;
+  display: flex;
+  flex-direction: column;
+}
+
+.filmSummary > h3 {
+  margin-top: 0.35em;
+  margin-bottom: 0.35em;
+}
+
+.filmSummary > p {
+  margin-top: 0;
+}
+/* FilmRow.module.css */
+/* FilmRow.module.css */
+/* .filmRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.posterContainer {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.iconOverlay {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.iconButton {
+  color: #fff;
+  cursor: pointer;
+}
+
+.filmInfo {
+  flex: 1;
+}
+
+.title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.releaseDate,
+.voteAverage {
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.releaseDate span,
+.voteAverage span {
+  font-weight: bold;
+}
+
+.overview {
+  margin-bottom: 1rem;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .filmRow {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .posterContainer {
+    margin-bottom: 1rem;
+  }
+}
