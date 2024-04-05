@@ -34,8 +34,8 @@ export function CoinLibrary({}) {
       },
     }).then((res) => res.json());
 
-  const URL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${aud}&per_page=10&page=1&price_change_percentage=24h`;
-
+  const URL = `https://api.coingecko.com/api/v3/search/trending`;
+  // ("https://api.coingecko.com/api/v3/search/trending");
   const { data: trendingCoinsData, error, mutate } = useSWR(URL, fetcher);
 
   console.log("TrendingCoinsData : ", trendingCoinsData);
@@ -92,7 +92,7 @@ export function CoinLibrary({}) {
   //     // setCurrentPage(1); // Reset the page number when the year changes
   //   };
 
-  const coinsToDisplay = trendingCoinsData;
+  const coinsToDisplay = trendingCoinsData.coins;
 
   return (
     <>

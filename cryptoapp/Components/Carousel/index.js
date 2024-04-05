@@ -8,24 +8,24 @@ export const Carousel = ({ coins }) => {
     <div className={styles.carouselContainer}>
       <div className={styles.carousel}>
         <ul className={styles.coinList}>
-          {coins.map((coin) => (
-            <li key={coin.id} className={styles.coinItem}>
+          {coins.map((coin, index) => (
+            <li key={index} className={styles.coinItem}>
               <img
-                src={coin.image}
-                alt={coin.name}
+                src={coin.item.large}
+                alt={coin.item.name}
                 className={styles.coinImage}
               />
               <div className={styles.coinInfo}>
-                <p>{coin.symbol.toUpperCase()}</p>
-                <p>AU${coin.current_price}</p>
+                <p>{coin.item.symbol.toUpperCase()}</p>
+                <p>AU${coin.item.data.price.toFixed(2)}</p>
                 <p
                   className={
-                    coin.price_change_percentage_24h < 0
+                    coin.item.data.price_change_percentage_24h.aud < 0
                       ? styles.negative
                       : styles.positive
                   }
                 >
-                  {coin.price_change_percentage_24h}%
+                  {coin.item.data.price_change_percentage_24h.aud.toFixed(2)}%
                 </p>
               </div>
             </li>
