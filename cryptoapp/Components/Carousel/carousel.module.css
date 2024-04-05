@@ -1,0 +1,49 @@
+/* components/carousel.module.css */
+.carouselContainer {
+  overflow: hidden;
+}
+
+.carousel {
+  white-space: nowrap;
+  animation: marquee linear infinite;
+  /* overflow: hidden; */
+}
+
+.coinList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  white-space: nowrap;
+  animation: marquee 20s linear infinite;
+}
+
+.coinItem {
+  display: inline-block;
+  padding: 0 15px;
+}
+
+.coinImage {
+  width: 100px; /* Adjust the width as needed */
+  height: 100px; /* Adjust the height as needed */
+  margin-right: 10px;
+}
+
+.coinInfo {
+  display: inline-block;
+}
+.negative {
+  color: red;
+}
+
+.positive {
+  color: green;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(calc(-100% - 20px));
+  }
+}

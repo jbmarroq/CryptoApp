@@ -1,4 +1,4 @@
-import styles from "./film-row.module.css";
+import styles from "./coin-row.module.css";
 import AddToQueueIcon from "@mui/icons-material/AddToQueue";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import RemoveFromQueueIcon from "@mui/icons-material/RemoveFromQueue";

@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { CoinRow } from "../CoinRow";
+import { LineChartConnectNulls } from "../CoinDetail/CoinDetail";
+import { Carousel } from "../Carousel";
 import { CoinsTable } from "../CoinTable/CoinTable";
 import { GECKO_API_KEY } from "@/Config/CoinGeckoAPI";
-import styles from "./film-library.module.css";
+import styles from "./coin-library.module.css";
 import AddToQueueIcon from "@mui/icons-material/AddToQueue";
 import useSWR, { mutate } from "swr";
 import { useRouter } from "next/router";
-
+import { Container, Typography } from "@mui/material";
 export function CoinLibrary({}) {
   // const router = useRouter();
   // const { query } = router;
@@ -94,68 +96,31 @@ export function CoinLibrary({}) {
 
   return (
     <>
-      <div className={styles.FilmLibrary}>
-        <div className={styles.filmList}>
-          {/* <h1 className={styles.sectionTitle}>
-            FILMS
-            <div>
-              <label htmlFor="releaseYear">Release Year:</label>
-              <input
-                id="releaseYear"
-                type="number"
-                value={releaseYear}
-                onChange={handleYearChange}
-              />
-            </div>
-          </h1>
-          <div className={styles.filmListFilters}>
-            <button
-              className={`${styles.filmListFilter} ${
-                !showFavorites ? styles.isActive : ""
-              }`}
-              onClick={() => setShowFavorites(false)}
-            >
-              ALL
-              <span className={styles.sectionCount}>{films.length}</span>
-            </button>
-            <button
-              className={`${styles.filmListFilter} ${
-                showFavorites ? styles.isActive : ""
-              }`}
-              onClick={() => setShowFavorites(true)}
-            >
-              FAVES
-              <span className={styles.sectionCount}>
-                {favoriteFilms.length}
-              </span>
-            </button>
-            <button className={styles.loadMoreButton} onClick={loadMoreMovies}>
-              Load More
-            </button>
-          </div> */}
-          {coinsToDisplay.length > 0 ? (
-            coinsToDisplay.map((coin) => (
-              <CoinRow
-                key={coin.id}
-                coin={coin}
-                //   onAddToQueue={addToFaves}
-                //   onRemoveFromQueue={removeFromFaves}
-                //   isFavorite={favoriteFilms.some((f) => f.id === film.id)}
-                //   releaseYear={releaseYear}
-              />
-            ))
-          ) : (
-            <div>
-              <br></br>
-            </div>
-          )}
-        </div>
-      </div>
+      <Container className="mx-auto">
+        <Typography
+          variant="h4"
+          style={{ marginTop: 20, justifyContent: "center", display: "flex" }}
+        >
+          Trending Coins
+        </Typography>
+      </Container>
 
-      <div className={styles.filmDetails}>
-        <h1 className={styles.sectionTitle}>Table:</h1>
+      {/*  */}
+      <Carousel coins={coinsToDisplay} />
+      <CoinsTable />
+      <LineChartConnectNulls />
+
+      {/* <div className={styles.container}>
+        <div className={styles.coinList}>
+          <div className={styles.coinRows}>
+            {coinsToDisplay.map((coin) => (
+              <CoinRow key={coin.id} coin={coin} />
+            ))}
+          </div>
+        </div>
+        <div className={styles.coinsTable}></div>
         <CoinsTable />
-      </div>
+      </div> */}
     </>
   );
 }

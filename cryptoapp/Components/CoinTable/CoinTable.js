@@ -28,6 +28,18 @@ import useSWR from "swr";
 //     },
 //   },
 // });
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+function formatNumber(number) {
+  if (Math.abs(number) >= 1e9) {
+    return (number / 1e9).toFixed(2) + " B";
+  } else if (Math.abs(number) >= 1e6) {
+    return (number / 1e6).toFixed(2) + " M";
+  } else {
+    return number.toString();
+  }
+}
 
 export function CoinsTable() {
   const [search, setSearch] = useState("");
@@ -46,7 +58,7 @@ export function CoinsTable() {
       },
     }).then((res) => res.json());
 
-  const URL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${aud}&order=market_cap_desc&per_page=100&page=1&price_change_percentage=1y`;
+  const URL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${aud}&order=market_cap_desc&per_page=100&page=1&price_change_percentage=24h`;
   // https://api.coingecko.com/api/v3/coins/markets?vs_currency=aud&order=market_cap_desc&per_page=100&page=1&price_change_percentage=1y
 
   const { data: topCoins, error } = useSWR(URL, fetcher);
@@ -65,10 +77,10 @@ export function CoinsTable() {
   const pageCount = Math.ceil((filteredCoins?.length || 0) / 10);
 
   return (
-    <Container>
+    <Container className="mx-auto">
       <Typography
         variant="h4"
-        style={{ margin: "18px 0", fontFamily: "Montserrat" }}
+        style={{ marginTop: 20, justifyContent: "center", display: "flex" }}
       >
         Cryptocurrency Prices by Market Cap
       </Typography>
@@ -84,9 +96,11 @@ export function CoinsTable() {
         <Table>
           <TableHead>
             <TableRow>
-              {["Coin", "Price", "Yearly Change", "Market Cap"].map((head) => (
-                <TableCell key={head}>{head}</TableCell>
-              ))}
+              {["Coin", "Price", "24h Change", "24h Volume", "Market Cap"].map(
+                (head) => (
+                  <TableCell key={head}>{head}</TableCell>
+                )
+              )}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -96,22 +110,49 @@ export function CoinsTable() {
                 // className={classes.row}
                 // onClick={() => history.push(`/coins/${coin.id}`)}
               >
-                <TableCell>{coin.name}</TableCell>
-                <TableCell>
-                  {coin.symbol} {coin.current_price.toFixed(2)}
+                <TableCell
+                //   style={{display: "flex",gap: 15,}}
+                >
+                  <div className="flex items-center space-x-2">
+                    <img
+                      src={coin.image}
+                      alt={`${coin?.name} Ticker`}
+                      width={50}
+                      height={50}
+                    />
+                    <div
+                    //className="flex flex-col" //</TableCell>style={{ display: "flex", flexDirection: "column" }}
+                    >
+                      <span>{coin.name}</span>
+                      <br></br>
+                      <span
+                        className="text-gray-500" //style={{ color: "darkgrey" }}
+                      >
+                        {coin.symbol.toUpperCase()}
+                      </span>
+                    </div>
+                  </div>
                 </TableCell>
                 <TableCell>
+                  AU$ {numberWithCommas(coin.current_price.toFixed(2))}
+                </TableCell>
+                <TableCell
+                  style={{
+                    color:
+                      coin.price_change_percentage_24h != null &&
+                      coin.price_change_percentage_24h >= 0
+                        ? "green"
+                        : "red",
+                  }}
+                >
                   {
-                    coin.price_change_percentage_1y_in_currency != null
-                      ? `${coin.price_change_percentage_1y_in_currency.toFixed(
-                          2
-                        )}%`
+                    coin.price_change_percentage_24h != null
+                      ? `${coin.price_change_percentage_24h.toFixed(2)}%`
                       : "N/A" /* Or any other placeholder text or UI element */
                   }
                 </TableCell>
-                <TableCell>
-                  {coin.symbol} {coin.market_cap.toLocaleString()}
-                </TableCell>
+                <TableCell>AU$ {formatNumber(coin.total_volume)}</TableCell>
+                <TableCell>AU$ {formatNumber(coin.market_cap)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -122,7 +163,8 @@ export function CoinsTable() {
           count={pageCount}
           page={page}
           onChange={(_, value) => setPage(value)}
-          style={{ marginTop: 20, justifyContent: "center" }}
+          style={{ marginTop: 20, justifyContent: "center", display: "flex" }}
+          size="large"
         />
       )}
     </Container>
