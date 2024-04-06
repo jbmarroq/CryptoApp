@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import Stack from "@mui/material/Stack";
 import { LineChart } from "@mui/x-charts/LineChart";
+
 import { GECKO_API_KEY } from "@/Config/CoinGeckoAPI";
 import { useState } from "react";
 

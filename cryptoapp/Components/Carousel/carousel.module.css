@@ -1,5 +1,6 @@
 /* components/carousel.module.css */
 .carouselContainer {
+  display: flex;
   overflow: hidden;
 }
 

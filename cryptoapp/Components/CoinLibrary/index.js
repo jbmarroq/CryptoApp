@@ -9,6 +9,9 @@ import AddToQueueIcon from "@mui/icons-material/AddToQueue";
 import useSWR, { mutate } from "swr";
 import { useRouter } from "next/router";
 import { Container, Typography } from "@mui/material";
+import { SyncChart } from "../CoinChart";
+import { MinMaxExample } from "../CoinDetail/SliderChart";
+
 export function CoinLibrary({}) {
   // const router = useRouter();
   // const { query } = router;
@@ -96,6 +99,7 @@ export function CoinLibrary({}) {
 
   return (
     <>
+      {/* <SyncChart /> */}
       <Container className="mx-auto">
         <Typography
           variant="h4"
@@ -106,9 +110,10 @@ export function CoinLibrary({}) {
       </Container>
 
       {/*  */}
-      <Carousel coins={coinsToDisplay} />
-      <CoinsTable />
-      <LineChartConnectNulls />
+      {/* <Carousel coins={coinsToDisplay} /> */}
+      {/* <CoinsTable /> */}
+      {/* <LineChartConnectNulls /> */}
+      <MinMaxExample />
 
       {/* <div className={styles.container}>
         <div className={styles.coinList}>
