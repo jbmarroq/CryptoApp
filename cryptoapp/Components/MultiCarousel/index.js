@@ -1,17 +1,5 @@
-import { useState, useEffect } from "react";
-import { CoinRow } from "../CoinRow";
-import { LineChartConnectNulls } from "../CoinDetail/CoinDetail";
-// import { Carousel } from "../Carousel";
-import { CoinsTable } from "../CoinTable/CoinTable";
+import useSWR from "swr";
 import { GECKO_API_KEY } from "@/Config/CoinGeckoAPI";
-import styles from "./coin-library.module.css";
-import AddToQueueIcon from "@mui/icons-material/AddToQueue";
-import useSWR, { mutate } from "swr";
-import { useRouter } from "next/router";
-import { Container, Typography, Box } from "@mui/material";
-import { SyncChart } from "../CoinChart";
-import { MinMaxExample, MinMaxExample2 } from "../CoinDetail/SliderChart";
-
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
@@ -35,7 +23,7 @@ const responsive = {
   },
 };
 
-export function CoinLibrary({}) {
+export function MultiCarousel({}) {
   // const router = useRouter();
   // const { query } = router;
 
@@ -61,7 +49,7 @@ export function CoinLibrary({}) {
     }).then((res) => res.json());
 
   const URL = `https://api.coingecko.com/api/v3/search/trending`;
-  // ("https://api.coingecko.com/api/v3/search/trending");
+
   const { data: trendingCoinsData, error, mutate } = useSWR(URL, fetcher);
 
   console.log("TrendingCoinsData : ", trendingCoinsData);
@@ -121,97 +109,41 @@ export function CoinLibrary({}) {
   const coinsToDisplay = trendingCoinsData.coins;
 
   return (
-    <>
-      <Container>
-        <Typography
-          variant="h4"
-          style={{ marginTop: 20, justifyContent: "center", display: "flex" }}
-        >
-          🔥🚀📈Trending Coins📉🥶⚰️
-        </Typography>
-      </Container>
-      {/* <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          width: "100dvw",
-          position: "fixed",
-          bottom: 24,
-        }}
-      > */}
-      {/* <SyncChart /> */}
-      <Carousel
-        responsive={responsive}
-        infinite={true}
-        autoPlay={true}
-        autoPlaySpeed={5000}
-      >
-        {coinsToDisplay.map((coin, index) => (
-          <div key={index} className="text-center">
-            {/* Assuming coin has properties 'name' and 'link' */}
-            <a href={coin.link}>{coin.name}</a>
-            <img
-              src={coin.item.large}
-              alt={coin.item.name}
-              className="mx-auto"
-              height={100}
-              width={100}
-            />
-            <div>
-              <p>{coin.item.symbol.toUpperCase()}</p>
+    <Carousel
+      responsive={responsive}
+      infinite={true}
+      autoPlay={true}
+      autoPlaySpeed={5000}
+    >
+      {coinsToDisplay.map((coin, index) => (
+        <div key={index} className="text-center">
+          {/* Assuming coin has properties 'name' and 'link' */}
+          <a href={coin.link}>{coin.name}</a>
+          <img
+            src={coin.item.large}
+            alt={coin.item.name}
+            className="mx-auto"
+            height={100}
+            width={100}
+          />
+          <div>
+            <p>{coin.item.symbol.toUpperCase()}</p>
 
-              <p
-                style={{
-                  color:
-                    coin.item.data.price_change_percentage_24h.aud != null &&
-                    coin.item.data.price_change_percentage_24h.aud >= 0
-                      ? "green"
-                      : "red",
-                }}
-              >
-                {coin.item.data.price_change_percentage_24h.aud.toFixed(2)}%
-              </p>
-              <p>AU${coin.item.data.price.toFixed(2)}</p>
-            </div>
-          </div>
-        ))}
-      </Carousel>
-
-      {/*  */}
-      {/* <Carousel coins={coinsToDisplay} /> */}
-      {/* <CoinsTable /> */}
-      {/* <LineChartConnectNulls /> */}
-      <Container>
-        <MinMaxExample />
-        <CoinsTable />
-
-        {/* <div className={styles.container}>
-        <div className={styles.coinList}>
-          <div className={styles.coinRows}>
-            {coinsToDisplay.map((coin) => (
-              <CoinRow key={coin.id} coin={coin} />
-            ))}
+            <p
+              style={{
+                color:
+                  coin.item.data.price_change_percentage_24h.aud != null &&
+                  coin.item.data.price_change_percentage_24h.aud >= 0
+                    ? "green"
+                    : "red",
+              }}
+            >
+              {coin.item.data.price_change_percentage_24h.aud.toFixed(2)}%
+            </p>
+            <p>AU${coin.item.data.price.toFixed(2)}</p>
           </div>
         </div>
-        <div className={styles.coinsTable}></div>
-        <CoinsTable />
-      </div> */}
-      </Container>
-      {/* </Box> */}
-    </>
+      ))}
+    </Carousel>
   );
 }
-
-// export const getServerSideProps = async ({ params }) => {
-//   const { currentPage, releaseYear } = params;
-//   const url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${currentPage}&primary_release_year=${releaseYear}&sort_by=popularity.desc`;
-//   const data = await fetcher(url);
-//   console.log("InitialDATA : ", data);
-
-//   return {
-//     props: {
-//       initialData: data.results,
-//     },
-//   };
-// };

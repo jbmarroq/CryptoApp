@@ -1,5 +1,5 @@
 /* CoinLibrary.module.css */
-.container {
+/* .container {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -20,14 +20,13 @@
 }
 
 .coinsTable {
-  width: 100%;
-  max-width: 800px; /* Set a maximum width for the table */
-
-  position: relative;
-  margin: 0 auto; /*Center the table horizontally*/
+  width: 100%; */
+/* max-width: 800px; /* Set a maximum width for the table */
+/* position: relative;
+  margin: 0 auto; Center the table horizontally
 }
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   .container {
     flex-direction: row;
   }
@@ -41,4 +40,4 @@
     width: 60%;
     margin: 0;
   }
-}
+} */

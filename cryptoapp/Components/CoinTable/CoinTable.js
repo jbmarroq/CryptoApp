@@ -77,7 +77,7 @@ export function CoinsTable() {
   const pageCount = Math.ceil((filteredCoins?.length || 0) / 10);
 
   return (
-    <Container className="mx-auto">
+    <Container>
       <Typography
         variant="h4"
         style={{ marginTop: 20, justifyContent: "center", display: "flex" }}
@@ -137,7 +137,7 @@ export function CoinsTable() {
                   AU$ {numberWithCommas(coin.current_price.toFixed(2))}
                 </TableCell>
                 <TableCell
-                  style={{
+                  sx={{
                     color:
                       coin.price_change_percentage_24h != null &&
                       coin.price_change_percentage_24h >= 0

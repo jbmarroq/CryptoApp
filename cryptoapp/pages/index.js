@@ -3,9 +3,9 @@ import Link from "next/link";
 export default function HomePage() {
   return (
     <div>
-      <h1>Welcome to the Film Library</h1>
-      <p>Explore our collection of movies.</p>
-      <Link href={`/coins`}>Go to Coins Library</Link>
+      <h1>Welcome to CryptoGuru</h1>
+      <p>Get rich now!!</p>
+      <Link href={`/coins`}>Go to were the action is💰💰💰</Link>
     </div>
   );
 }
