@@ -114,11 +114,16 @@ export function MultiCarousel({}) {
       infinite={true}
       autoPlay={true}
       autoPlaySpeed={5000}
+      // containerClass="container"
     >
       {coinsToDisplay.map((coin, index) => (
         <div key={index} className="text-center">
           {/* Assuming coin has properties 'name' and 'link' */}
           <a href={coin.link}>{coin.name}</a>
+          {/* <Link
+            className={classes.carouselItem}
+            to={`/coins/${coin.id}`}
+          ></Link> */}
           <img
             src={coin.item.large}
             alt={coin.item.name}

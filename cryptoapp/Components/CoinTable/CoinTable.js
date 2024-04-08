@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { makeStyles } from "@mui/material";
+
 import { GECKO_API_KEY } from "@/Config/CoinGeckoAPI";
 import {
   Container,
@@ -14,20 +14,9 @@ import {
   Paper,
   Pagination,
 } from "@mui/material";
-
+import { useRouter } from "next/router";
 import useSWR from "swr";
-// import { CoinList } from "../config/api";
-// import { useHistory } from "react-router-dom";
-// import { CryptoState } from "../CryptoContext";
 
-// const useStyles = makeStyles({
-//   row: {
-//     cursor: "pointer",
-//     "&:hover": {
-//       backgroundColor: "#f1f1f1",
-//     },
-//   },
-// });
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -45,9 +34,11 @@ export function CoinsTable() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
 
-  //const { currency, symbol } = CryptoState();
-  //   const classes = useStyles();
-  //   const history = useHistory();
+  const router = useRouter();
+
+  const handleRowClick = (coinId) => {
+    router.push(`/coins/${coinId}`);
+  };
 
   const aud = "aud";
   const fetcher = (...args) =>
@@ -58,9 +49,8 @@ export function CoinsTable() {
       },
     }).then((res) => res.json());
 
-  const URL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${aud}&order=market_cap_desc&per_page=100&page=1&price_change_percentage=24h`;
-  // https://api.coingecko.com/api/v3/coins/markets?vs_currency=aud&order=market_cap_desc&per_page=100&page=1&price_change_percentage=1y
-
+  const URL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${aud}&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=24h`;
+  //        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=${aud}&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=24h'; GET SPARKLINE!!!!
   const { data: topCoins, error } = useSWR(URL, fetcher);
 
   console.log("TopCoins : ", topCoins);
@@ -105,10 +95,12 @@ export function CoinsTable() {
           </TableHead>
           <TableBody>
             {filteredCoins?.slice((page - 1) * 10, page * 10).map((coin) => (
+              // <Link href={`/coins/${coin.id}`} passHref>
               <TableRow
+                hover
+                sx={{ cursor: "pointer" }}
                 key={coin.id}
-                // className={classes.row}
-                // onClick={() => history.push(`/coins/${coin.id}`)}
+                onClick={() => handleRowClick(coin.id)} //<Link to={`/coins/${coin.id}`}> <<=this changes layout
               >
                 <TableCell
                 //   style={{display: "flex",gap: 15,}}
@@ -154,6 +146,7 @@ export function CoinsTable() {
                 <TableCell>AU$ {formatNumber(coin.total_volume)}</TableCell>
                 <TableCell>AU$ {formatNumber(coin.market_cap)}</TableCell>
               </TableRow>
+              // </Link>
             ))}
           </TableBody>
         </Table>
