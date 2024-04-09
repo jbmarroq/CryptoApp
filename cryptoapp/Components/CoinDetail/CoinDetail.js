@@ -21,7 +21,7 @@ const formatDate = (timestamp) => {
   return date.toLocaleDateString(); // Adjust the format as needed
 };
 
-export function LineChartConnectNulls() {
+function LineChartConnectNulls() {
   const [historicData, setHistoricData] = useState();
   const aud = "aud";
   const fetcher = (...args) =>

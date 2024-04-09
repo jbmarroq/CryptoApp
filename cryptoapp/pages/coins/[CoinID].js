@@ -24,7 +24,7 @@ export default function CoinDetails() {
 
   const URL = `https://api.coingecko.com/api/v3/coins/${CoinID}?localization=true&tickers=true&market_data=true&community_data=true&developer_data=true&sparkline=true`;
 
-  const { data: coinInfo, error } = useSWR(URL, fetcher);
+  const { data: coinInfo, error } = useSWR(CoinID ? URL : null, fetcher);
   console.log("coin Details:", coinInfo);
 
   if (!coinInfo && !error) return <div className="text-center">Loading...</div>;

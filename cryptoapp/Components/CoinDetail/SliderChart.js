@@ -1,9 +1,9 @@
 import Slider from "@mui/material/Slider";
 import Box from "@mui/material/Box";
-import { ScatterChart } from "@mui/x-charts/ScatterChart";
+// import { ScatterChart } from "@mui/x-charts/ScatterChart";
 import useSWR from "swr";
-import { mutate } from "swr";
-import Stack from "@mui/material/Stack";
+// import { mutate } from "swr";
+// import Stack from "@mui/material/Stack";
 import { LineChart } from "@mui/x-charts/LineChart";
 
 import { GECKO_API_KEY } from "@/Config/CoinGeckoAPI";

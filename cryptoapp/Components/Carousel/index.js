@@ -3,7 +3,7 @@
 import React from "react";
 import styles from "./carousel.module.css";
 
-export const Carousel = ({ coins }) => {
+const Carousel = ({ coins }) => {
   return (
     <div className={styles.carouselContainer}>
       <div className={styles.carousel}>
