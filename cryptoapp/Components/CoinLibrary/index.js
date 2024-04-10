@@ -9,7 +9,7 @@ import { CoinsTable } from "../CoinTable/CoinTable";
 
 import { useRouter } from "next/router";
 import { Container, Typography, Box } from "@mui/material";
-// import { SyncChart } from "../CoinChart";
+import { SyncChart } from "../CoinChart";
 import { MinMaxExample, MinMaxExample2 } from "../CoinDetail/SliderChart";
 import { MultiCarousel } from "../MultiCarousel";
 
@@ -51,14 +51,14 @@ export function CoinLibrary({}) {
           bottom: 24,
         }}
       > */}
-      {/* <SyncChart /> */}
+      <SyncChart />
 
       {/*  */}
       {/* <Carousel coins={coinsToDisplay} /> */}
       {/* <CoinsTable /> */}
       {/* <LineChartConnectNulls /> */}
       <Container>
-        <MinMaxExample />
+        {/* <MinMaxExample /> */}
         <CoinsTable />
 
         {/* <div className={styles.container}>

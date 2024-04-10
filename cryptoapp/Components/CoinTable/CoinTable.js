@@ -14,6 +14,8 @@ import {
   Paper,
   Pagination,
 } from "@mui/material";
+import { LineChart, Line } from "recharts";
+
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
@@ -29,6 +31,14 @@ function formatNumber(number) {
     return number.toString();
   }
 }
+const calculateLineColor = (prices) => {
+  if (prices.length < 2) return "blue"; // Default color
+
+  const firstPrice = prices[0];
+  const lastPrice = prices[prices.length - 1];
+
+  return firstPrice <= lastPrice ? "green" : "red"; // Green for uptrend, red for downtrend
+};
 
 export function CoinsTable() {
   const [search, setSearch] = useState("");
@@ -86,11 +96,16 @@ export function CoinsTable() {
         <Table>
           <TableHead>
             <TableRow>
-              {["Coin", "Price", "24h Change", "24h Volume", "Market Cap"].map(
-                (head) => (
-                  <TableCell key={head}>{head}</TableCell>
-                )
-              )}
+              {[
+                "Coin",
+                "Price",
+                "24h Change",
+                "24h Volume",
+                "Market Cap",
+                "7D Sparkline",
+              ].map((head) => (
+                <TableCell key={head}>{head}</TableCell>
+              ))}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -145,6 +160,26 @@ export function CoinsTable() {
                 </TableCell>
                 <TableCell>AU$ {formatNumber(coin.total_volume)}</TableCell>
                 <TableCell>AU$ {formatNumber(coin.market_cap)}</TableCell>
+                <TableCell>
+                  {coin.sparkline_in_7d && (
+                    <LineChart
+                      width={100}
+                      height={100}
+                      data={coin.sparkline_in_7d.price.map((price, index) => ({
+                        price: price,
+                        time: index, // Assuming the time is linearly increasing
+                      }))}
+                    >
+                      <Line
+                        type="monotone"
+                        dataKey="price"
+                        stroke={calculateLineColor(coin.sparkline_in_7d.price)}
+                        strokeWidth={1}
+                        dot={false}
+                      />
+                    </LineChart>
+                  )}
+                </TableCell>
               </TableRow>
               // </Link>
             ))}
