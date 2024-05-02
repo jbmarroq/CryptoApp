@@ -8,7 +8,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
   //   NavigationMenuViewport,
-} from "@/components/ui/navigation-menu";
+} from "../ui/navigation-menu";
 import Link from "next/link";
 
 export function NavMenu() {

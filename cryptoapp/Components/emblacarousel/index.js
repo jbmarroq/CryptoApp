@@ -1,12 +1,12 @@
 import useSWR from "swr";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "../ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
+} from "../ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { GECKO_API_KEY } from "@/Config/CoinGeckoAPI";
 

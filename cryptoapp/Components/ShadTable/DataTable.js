@@ -14,7 +14,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "../ui/table";
 import {
   Pagination,
   PaginationContent,
@@ -23,8 +23,8 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination";
-import { Input } from "@/components/ui/input";
+} from "../ui/pagination";
+import { Input } from "../ui/input";
 import {
   LineChart,
   Line,
