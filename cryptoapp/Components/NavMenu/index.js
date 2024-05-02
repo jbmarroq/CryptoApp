@@ -8,7 +8,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
   //   NavigationMenuViewport,
-} from "/Users/jasonmarroquin/CryptoAPP_REPO/CryptoApp-3/cryptoapp/Components/ui/navigation-menu";
+} from "@/components/ui/navigation-menu";
 import Link from "next/link";
 
 export function NavMenu() {
