@@ -1,79 +1,49 @@
 // import { useState, useEffect } from "react";
 // import { CoinRow } from "../CoinRow";
-// import { LineChartConnectNulls } from "../CoinDetail/CoinDetail";
 
 import { CoinsTable } from "../CoinTable/CoinTable";
-// import { GECKO_API_KEY } from "@/Config/CoinGeckoAPI";
+import { GECKO_API_KEY } from "@/Config/CoinGeckoAPI";
 
 // import AddToQueueIcon from "@mui/icons-material/AddToQueue";
 
 import { useRouter } from "next/router";
 import { Container, Typography, Box } from "@mui/material";
 import { SyncChart } from "../CoinChart";
-import { MinMaxExample, MinMaxExample2 } from "../CoinDetail/SliderChart";
-import { MultiCarousel } from "../MultiCarousel";
+
+// import { MultiCarousel } from "../MultiCarousel";
+import { EmblaCarousel } from "../emblacarousel";
+import { CoinsDataTable } from "../ShadTable";
+import { NavMenu } from "../NavMenu";
+import { ModeToggle } from "../ToggleMode/ModeToggle";
 
 export function CoinLibrary({}) {
-  // const router = useRouter();
-  // const { query } = router;
-
-  //   const [favoriteFilms, setFavoriteFilms] = useState([]);
-  //   const [showFavorites, setShowFavorites] = useState(false);
-  //   const [currentPage, setCurrentPage] = useState(1);
-  //   const [releaseYear, setReleaseYear] = useState(query.releaseYear || 2020); // Reading releaseYear from query object or when user changes state
-
-  // Retrieve favorite films from localStorage on mount
-  //   useEffect(() => {
-  //     const storedFavoriteFilms = localStorage.getItem("favoriteFilms");
-  //     if (storedFavoriteFilms) {
-  //       setFavoriteFilms(JSON.parse(storedFavoriteFilms));
-  //     }
-  //   }, []);
-
   return (
     <>
+      {/* <div> */}
+      {/* className="container flex h-14 max-w-screen-2xl items-center" */}
+      <div className="sticky top-0 z-50 w-full border-transparent bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex justify-center items-center dark:border-transparent">
+        <NavMenu />
+        <ModeToggle />
+      </div>
+      {/* </div> */}
       <Container>
-        <Typography
+        {/* <Typography
           variant="h4"
           style={{ marginTop: 20, justifyContent: "center", display: "flex" }}
         >
           🔥🚀📈Trending Coins📉🥶⚰️
-        </Typography>
-      </Container>
-      <MultiCarousel />
-      {/* <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          width: "100dvw",
-          position: "fixed",
-          bottom: 24,
-        }}
-      > */}
-      <SyncChart />
+        </Typography> */}
 
-      {/*  */}
-      {/* <Carousel coins={coinsToDisplay} /> */}
-      {/* <CoinsTable /> */}
-      {/* <LineChartConnectNulls /> */}
+        <h1 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 dark:border-stone-700">
+          Trending Coins
+        </h1>
+      </Container>
+      {/* <MultiCarousel /> */}
+      <EmblaCarousel />
       <Container>
-        {/* <MinMaxExample /> */}
-        <CoinsTable />
-
-        {/* <div className={styles.container}>
-        <div className={styles.coinList}>
-          <div className={styles.coinRows}>
-            {coinsToDisplay.map((coin) => (
-              <CoinRow key={coin.id} coin={coin} />
-            ))}
-          </div>
-        </div>
-        <div className={styles.coinsTable}></div>
-        <CoinsTable />
-      </div> */}
+        {/* <CoinsTable /> */}
+        <CoinsDataTable />
       </Container>
-      {/* </Box> */}
     </>
   );
 }
