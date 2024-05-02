@@ -1,14 +1,14 @@
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
+  //   NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-  NavigationMenuViewport,
-} from "@/components/ui/navigation-menu";
+  //   NavigationMenuViewport,
+} from "/Users/jasonmarroquin/CryptoAPP_REPO/CryptoApp-3/cryptoapp/Components/ui/navigation-menu";
 import Link from "next/link";
 
 export function NavMenu() {
