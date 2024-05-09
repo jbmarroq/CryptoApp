@@ -178,7 +178,7 @@ export function DataTable() {
   };
   return (
     <>
-      <div className="flex py-4">
+      <div className="flex py-4 ">
         <Input
           placeholder="Search for a Cryptocurrency..."
           value={search}
@@ -187,6 +187,7 @@ export function DataTable() {
         />
       </div>
       <div>
+        {/* className="rounded-md border" */}
         <Table className="border dark:border dark:border-stone-700 rounded-md">
           <TableHeader className="bg-slate-100 dark:bg-slate-950 ">
             <TableRow className="dark:border-stone-700 ">
@@ -215,8 +216,8 @@ export function DataTable() {
                 key={coin.id}
                 onClick={() => handleRowClick(coin.id)} //<Link to={`/coins/${coin.id}`}> <<=this changes layout
               >
-                <TableCell>
-                  <div className="flex items-center space-x-2 mr-6">
+                <TableCell className="p-1">
+                  <div className="flex items-center space-x-2 mr-9">
                     <img
                       className="shadow-lg p-2 rounded-full duration-700 hover:scale-110"
                       src={coin.image}
@@ -245,7 +246,7 @@ export function DataTable() {
                   className={
                     coin.price_change_percentage_24h != null &&
                     coin.price_change_percentage_24h >= 0
-                      ? "text-green-500"
+                      ? "text-green-700"
                       : "text-red-500"
                   }
                 >
@@ -257,7 +258,7 @@ export function DataTable() {
                 </TableCell>
                 <TableCell>AU$ {formatNumber(coin.total_volume)}</TableCell>
                 <TableCell>AU$ {formatNumber(coin.market_cap)}</TableCell>
-                <TableCell>
+                <TableCell className="p-1">
                   {coin.sparkline_in_7d && (
                     // <ResponsiveContainer width="100%" height="100%">
 

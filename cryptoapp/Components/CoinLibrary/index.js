@@ -15,14 +15,16 @@ import { EmblaCarousel } from "../emblacarousel";
 import { CoinsDataTable } from "../ShadTable";
 import { NavMenu } from "../NavMenu";
 import { ModeToggle } from "../ToggleMode/ModeToggle";
+import { MenuBar } from "../Menubar";
 
 export function CoinLibrary({}) {
   return (
     <>
       {/* <div> */}
       {/* className="container flex h-14 max-w-screen-2xl items-center" */}
-      <div className="sticky top-0 z-50 w-full border-transparent bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex justify-center items-center dark:border-transparent">
+      <div className="sticky top-0 z-50 w-full border-transparent bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60  flex flex-wrap items-center justify-between dark:border-transparent p-4 md:px-6">
         <NavMenu />
+        <MenuBar />
         <ModeToggle />
       </div>
       {/* </div> */}
@@ -41,6 +43,9 @@ export function CoinLibrary({}) {
       {/* <MultiCarousel /> */}
       <EmblaCarousel />
       <Container>
+        <h1 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 dark:border-stone-700 text-center p-10">
+          Cryptocurrency Prices by Market Cap
+        </h1>
         {/* <CoinsTable /> */}
         <CoinsDataTable />
       </Container>

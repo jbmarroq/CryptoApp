@@ -6,22 +6,52 @@ import {
   MenubarSeparator,
   MenubarShortcut,
   MenubarTrigger,
+  MenubarRadioGroup,
+  MenubarRadioItem,
+  MenubarCheckboxItem,
 } from "../ui/menubar";
 
-export function Menubar() {
+export function MenuBar() {
   return (
-    <Menubar>
+    <Menubar className="hidden sm:flex">
       <MenubarMenu>
-        <MenubarTrigger>File</MenubarTrigger>
+        <MenubarTrigger>Log In</MenubarTrigger>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>Sign Up</MenubarTrigger>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>AUD</MenubarTrigger>
         <MenubarContent>
-          <MenubarItem>
-            New Tab <MenubarShortcut>⌘T</MenubarShortcut>
-          </MenubarItem>
-          <MenubarItem>New Window</MenubarItem>
+          <MenubarItem>USD - U.S. Dollar</MenubarItem>
           <MenubarSeparator />
-          <MenubarItem>Share</MenubarItem>
+          <MenubarItem>CAD - Canadian Dollar</MenubarItem>
           <MenubarSeparator />
-          <MenubarItem>Print</MenubarItem>
+          <MenubarItem>EUR - Euro</MenubarItem>
+          <MenubarSeparator />
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>Profiles</MenubarTrigger>
+        <MenubarContent>
+          <MenubarRadioGroup value="benoit">
+            <MenubarRadioItem value="andy">Andy</MenubarRadioItem>
+            <MenubarRadioItem value="benoit">Benoit</MenubarRadioItem>
+            <MenubarRadioItem value="Luis">Luis</MenubarRadioItem>
+          </MenubarRadioGroup>
+          <MenubarSeparator />
+          <MenubarItem inset>Edit...</MenubarItem>
+          <MenubarSeparator />
+          <MenubarItem inset>Add Profile...</MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>Language</MenubarTrigger>
+        <MenubarContent>
+          <MenubarCheckboxItem>Espanol</MenubarCheckboxItem>
+          <MenubarCheckboxItem checked>English</MenubarCheckboxItem>
+          <MenubarCheckboxItem>Esperanto</MenubarCheckboxItem>
+          <MenubarCheckboxItem>Klingon</MenubarCheckboxItem>
         </MenubarContent>
       </MenubarMenu>
     </Menubar>

@@ -9,6 +9,7 @@ import {
 } from "../ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { GECKO_API_KEY } from "@/Config/CoinGeckoAPI";
+import Link from "next/link";
 
 export function EmblaCarousel() {
   const aud = "aud";
@@ -58,13 +59,15 @@ export function EmblaCarousel() {
               <Card className="bg-slate-100 dark:bg-slate-950 dark:border-stone-700">
                 <CardContent className="flex aspect-rectangular items-center justify-center p-1">
                   {/* flex aspect-rectangular items-center justify-center p-1 */}
-                  <img
-                    src={coin.item.large}
-                    alt={coin.item.name}
-                    className="hover:bg-white shadow-lg transition-all  hover:scale-110 p-2 rounded-full mr-1 "
-                    height={100}
-                    width={100}
-                  />
+                  <Link href={`/coins/${coin.item.id}`}>
+                    <img
+                      src={coin.item.large}
+                      alt={coin.item.name}
+                      className="hover:bg-white shadow-lg transition-all  hover:scale-110 p-2 rounded-full mr-1 "
+                      height={100}
+                      width={100}
+                    />
+                  </Link>
                   <div className="text-center mr-3 text-sm tracking-tight">
                     <p>{coin.item.symbol.toUpperCase()}</p>
 
