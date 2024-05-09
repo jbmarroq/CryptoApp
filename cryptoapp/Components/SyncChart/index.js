@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { GECKO_API_KEY } from "@/Config/CoinGeckoAPI";
 import {
-  LineChart,
-  Line,
+  LinearGradient,
+  stop,
+  defs,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -33,7 +34,7 @@ const formatDate = (timestamp) => {
 
 export function SyncChart() {
   const [days, setDays] = useState(1);
-  const [chartData, setChartData] = useState([]);
+  //   const [chartData, setChartData] = useState([]);
   const [didUpdateChartData, setDidUpdateChartData] = useState(false);
   const [didUpdateAgain, setDidUpdateAgain] = useState(false);
 
@@ -53,26 +54,32 @@ export function SyncChart() {
   const { data: coinHistory, error, isLoading } = useSWR(URL, fetcher);
 
   console.log("CoinHistory : ", coinHistory);
+  const chartData = coinHistory?.prices.map((priceData, index) => ({
+    date: formatDate(priceData[0]),
+    price: priceData[1],
+    marketCaps: coinHistory.market_caps[index][1],
+    totalVolumes: coinHistory.total_volumes[index][1],
+  }));
   // console.log(error);
-  useEffect(() => {
-    if (coinHistory && coinHistory.prices) {
-      setChartData(
-        (prevData) =>
-          [
-            ...prevData,
-            ...coinHistory?.prices.map((priceData, index) => ({
-              date: formatDate(priceData[0]),
-              price: priceData[1],
-              marketCaps: coinHistory.market_caps[index][1],
-              totalVolumes: coinHistory.total_volumes[index][1],
-            })),
-          ].sort((a, b) => new Date(a.date) - new Date(b.date)) ///datapoints are concatenated need to sort by datetime
-      );
-    }
-  }, [coinHistory]);
+  //   useEffect(() => {
+  //     if (coinHistory && coinHistory.prices) {
+  //       setChartData(
+  //         (prevData) =>
+  //           [
+  //             ...prevData,
+  //             ...coinHistory?.prices.map((priceData, index) => ({
+  //               date: formatDate(priceData[0]),
+  //               price: priceData[1],
+  //               marketCaps: coinHistory.market_caps[index][1],
+  //               totalVolumes: coinHistory.total_volumes[index][1],
+  //             })),
+  //           ].sort((a, b) => new Date(a.date) - new Date(b.date)) ///datapoints are concatenated need to sort by datetime
+  //       );
+  //     }
+  //   }, [coinHistory]);
   const handleClick = (days) => {
     setDays(days);
-    mutate(URL, undefined, false); // Revalidate the data
+    mutate(URL, undefined, true); // Revalidate the data
   };
 
   if (error) return <div>Failed to load coinHistory</div>;
@@ -157,54 +164,61 @@ export function SyncChart() {
     >
       <div className="flex justify-between w-full mb-4">
         <button
-          className="flex-grow bg-stone-200 shadow-md hover:bg-slate-900 text-slate-700  hover:text-white py-0  border-2 border-stone-400 hover:border-transparent dark:border-stone-700 dark:text-stone-500"
+          className="flex-grow bg-stone-200 shadow-md hover:bg-slate-900 text-slate-700  hover:text-white py-0  border border-stone-400 hover:border-transparent dark:border-stone-700 dark:text-stone-500"
           onClick={() => handleClick(1)}
         >
-          24h
+          24 hours
         </button>
         <div className="w-4"></div>
         <button
-          className="flex-grow bg-stone-200 bg-transparent shadow-sm   hover:bg-slate-900 text-slate-700  hover:text-white border border-stone-400 hover:border-transparent  dark:border-stone-700 dark:text-stone-500"
+          className="flex-grow bg-stone-200 bg-transparent   hover:bg-slate-900 text-slate-700  hover:text-white border border-stone-400 hover:border-transparent  dark:border-stone-700 dark:text-stone-500"
           onClick={() => handleClick(7)}
         >
-          7d
+          7 days
         </button>
         <div className="w-4"></div>
         <button
-          className="flex-grow bg-stone-200 bg-transparent  shadow-md  hover:bg-slate-900 text-slate-700 border-2 hover:text-white border  border-stone-400 hover:border-transparent  dark:border-stone-700 dark:text-stone-500"
+          className="flex-grow bg-stone-200 bg-transparent  shadow-md  hover:bg-slate-900 text-slate-700 border hover:text-white border  border-stone-400 hover:border-transparent  dark:border-stone-700 dark:text-stone-500"
           onClick={() => handleClick(30)}
         >
-          1m
+          1 month
         </button>
         <div className="w-4"></div>
         <button
-          className="flex-grow bg-stone-200 bg-transparent shadow-md   hover:bg-slate-900 text-slate-700  border hover:text-white border border-stone-400 hover:border-transparent  dark:border-stone-700 dark:text-stone-500"
+          className="flex-grow bg-stone-200 bg-transparent shadow-sm   hover:bg-slate-900 text-slate-700  border hover:text-white border border-stone-400 hover:border-transparent  dark:border-stone-700 dark:text-stone-500"
           onClick={() => handleClick(365)}
         >
-          1y
+          1 year
         </button>
       </div>
       <h1 className="text-yellow-500">Price (AU$)</h1>
+
       <ResponsiveContainer width="100%" height={200}>
-        <LineChart
+        <AreaChart
           width={500}
           height={200}
           data={chartData}
           syncId="anyId"
           margin={{
             top: 10,
-            right: 30,
-            left: 30,
+            right: 90,
+            left: 90,
             bottom: 0,
           }}
         >
+          <defs>
+            <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#FDDC5C" stopOpacity={0.8}></stop>
+              <stop offset="95%" stopColor="#FDDC5C" stopOpacity={0}></stop>
+            </linearGradient>
+          </defs>
           <Brush
             dataKey="date"
             height={25}
             startIndex={15}
-            travellerWidth={7}
+            travellerWidth={10}
             // stroke="gray"
-            // fill="lightgray"
+            fill="#E5E5E5"
             gap={1}
             // x={value}
             // onChange={(brush) => handleBrushChange(brush)}
@@ -213,6 +227,7 @@ export function SyncChart() {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
           <YAxis
+            domain={["auto", "auto"]}
             tickFormatter={(value) =>
               value.toLocaleString("en", {
                 notation: "compact",
@@ -224,33 +239,46 @@ export function SyncChart() {
               color: "black",
             }}
           />
-          <Line
+          <Area
             type="monotone"
             dataKey="price"
-            stroke="orange"
-            fill="#8884d8"
+            stroke="goldenrod"
+            // fill="#FDDC5C" //"#FDDC5C"
+            fillOpacity={1}
+            fill="url(#colorPrice)"
             dot={false}
           />
-        </LineChart>
+        </AreaChart>
       </ResponsiveContainer>
       <h1 className="text-yellow-500">Market Caps (AU$)</h1>
 
       <ResponsiveContainer width="100%" height={200}>
-        <LineChart
+        <AreaChart
           width={500}
           height={200}
           data={chartData}
           syncId="anyId"
           margin={{
             top: 10,
-            right: 30,
-            left: 30,
+            right: 90,
+            left: 90,
             bottom: 0,
           }}
         >
+          <defs>
+            <linearGradient id="colorMarket" x1="0" y1="0" x2="0" y2="1">
+              <stop
+                offset="5%"
+                stopColor="yellowgreen"
+                stopOpacity={0.8}
+              ></stop>
+              <stop offset="95%" stopColor="yellowgreen" stopOpacity={0}></stop>
+            </linearGradient>
+          </defs>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
           <YAxis
+            domain={["auto", "auto"]}
             tickFormatter={(value) =>
               value.toLocaleString("en", {
                 notation: "compact",
@@ -261,14 +289,17 @@ export function SyncChart() {
           {/* domain={[0, "auto"]} */}
           <Tooltip labelStyle={{ color: "black" }} />
 
-          <Line
+          <Area
             type="monotone"
             dataKey="marketCaps"
-            stroke="green"
-            fill="#82ca9d"
+            stroke="limegreen"
+            // fill="yellowgreen"
+            // fill="#edff4d"
+            fillOpacity={1}
+            fill="url(#colorMarket)"
             dot={false}
           />
-        </LineChart>
+        </AreaChart>
       </ResponsiveContainer>
       <h1 className="text-yellow-500">Total Volume (AU$)</h1>
       <ResponsiveContainer width="100%" height={200}>
@@ -279,14 +310,21 @@ export function SyncChart() {
           syncId="anyId"
           margin={{
             top: 10,
-            right: 30,
-            left: 30,
+            right: 90,
+            left: 90,
             bottom: 0,
           }}
         >
+          <defs>
+            <linearGradient id="colorVolumes" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#ff8cff" stopOpacity={0.8}></stop>
+              <stop offset="95%" stopColor="#ff8cff" stopOpacity={0}></stop>
+            </linearGradient>
+          </defs>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
           <YAxis
+            domain={["auto", "auto"]}
             tickFormatter={(value) =>
               value.toLocaleString("en", {
                 notation: "compact",
@@ -299,7 +337,9 @@ export function SyncChart() {
             type="monotone"
             dataKey="totalVolumes"
             stroke="magenta"
-            fill="purple"
+            //
+            fillOpacity={1}
+            fill="url(#colorVolumes)"
           />
         </AreaChart>
       </ResponsiveContainer>

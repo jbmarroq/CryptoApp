@@ -106,7 +106,6 @@ export default function CoinDetails() {
           <div></div>
         </div>
         <div className="col-span-2">
-          Add buttons for fetching at 24;1
           <SyncChart />
         </div>
       </div>
