@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import Link from "next/link";
 import { SyncChart } from "@/Components/SyncChart";
+import { Skeleton } from "@/components/ui/skeleton";
 
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -38,7 +39,63 @@ export default function CoinDetails() {
   const { data: coinInfo, error } = useSWR(CoinID ? URL : null, fetcher);
   console.log("coin Details:", coinInfo);
 
-  if (!coinInfo && !error) return <div className="text-center">Loading...</div>;
+  if (!coinInfo && !error)
+    return (
+      <>
+        <div className="p-1">
+          <Link href={"/coins"}>
+            <button className="bg-transparent shadow-xl p-2 rounded-full hover:bg-slate-900 text-slate-700  hover:text-white py-2 px-4 border border-slate-300 hover:border-transparent rounded dark:border-stone-700 dark:text-stone-500">
+              Back To Coins
+            </button>
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-1">
+          <div className="bg-slate-100 col-span-1 border rounded-md p-4  dark:border-stone-700 dark:bg-slate-950">
+            <div className="flex flex-col items-center justify-center">
+              <Skeleton />
+              <h1 className="scroll-m-20  pb-2 text-2xl md:text-4xl font-semibold tracking-tight first:mt-0 ">
+                <Skeleton />
+              </h1>
+              <p className="scroll-m-20 text-stone-500 border-b pb-2 text-sm md:text-md  tracking-tight first:mt-0 dark:border-stone-700">
+                Genesis Date: <Skeleton />
+              </p>
+            </div>
+
+            <div className="mb-4">
+              <p className="flex items-center">
+                <span className="text-md md:text-xl  font-semibold">Rank:</span>
+                <span className="text-md md:text-xl  ml-2 ">
+                  <Skeleton />
+                </span>
+              </p>
+              <p className="flex items-center">
+                <span className="text-md md:text-xl font-semibold">
+                  Current Price:
+                </span>
+                <span className="text-md md:text-xl ml-2">
+                  AU$ <Skeleton />
+                </span>
+              </p>
+              <p className="flex items-center">
+                <span className="text-md md:text-xl font-semibold">
+                  Market Cap:
+                </span>
+                <span className="text-md md:text-xl ml-2">
+                  AU$ <Skeleton />M
+                </span>
+              </p>
+            </div>
+            <p className="text-secondary text-justify dark:text-stone-400">
+              <Skeleton />
+            </p>
+            <div></div>
+          </div>
+          <div className="col-span-2">
+            <Skeleton />
+          </div>
+        </div>
+      </>
+    );
   if (error) return <div className="text-center">Error: {error}</div>;
 
   return (

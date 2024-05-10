@@ -3,6 +3,7 @@ import useSWR from "swr";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { GECKO_API_KEY } from "@/Config/CoinGeckoAPI";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   LinearGradient,
   stop,
@@ -14,7 +15,6 @@ import {
   Brush,
   AreaChart,
   Area,
-  Skeleton,
   ResponsiveContainer,
   Legend,
 } from "recharts";
@@ -37,6 +37,7 @@ export function SyncChart() {
   //   const [chartData, setChartData] = useState([]);
   const [didUpdateChartData, setDidUpdateChartData] = useState(false);
   const [didUpdateAgain, setDidUpdateAgain] = useState(false);
+  const [lastClickedButton, setLastClickedButton] = useState(1);
 
   const router = useRouter();
   const { CoinID } = router.query;
@@ -79,16 +80,14 @@ export function SyncChart() {
   //   }, [coinHistory]);
   const handleClick = (days) => {
     setDays(days);
+    setLastClickedButton(days); // Update the lastClickedButton state
     mutate(URL, undefined, true); // Revalidate the data
   };
 
   if (error) return <div>Failed to load coinHistory</div>;
   if (isLoading) return;
-  <div
-    style={{ border: "1px solid pink", padding: "10px", borderRadius: "5px" }}
-  >
-    Loading...
-    {/* <Skeleton
+  <div>
+    <Skeleton
       sx={{ bgcolor: "grey.700" }}
       animation="wave"
       variant="rounded"
@@ -108,7 +107,7 @@ export function SyncChart() {
       variant="rounded"
       width="100%"
       height={250}
-    /> */}
+    />
   </div>;
 
   //   const handleBrushChange = (value) => {
@@ -164,34 +163,50 @@ export function SyncChart() {
     >
       <div className="flex justify-between w-full mb-4">
         <button
-          className="flex-grow bg-stone-200 shadow-md hover:bg-slate-900 text-slate-700  hover:text-white py-0  border border-stone-400 hover:border-transparent dark:border-stone-700 dark:text-stone-500"
+          className={`flex-grow bg-stone-200 shadow-md hover:bg-slate-900 text-stone-500  hover:text-white py-0  border border-stone-200 hover:border-transparent dark:border-stone-700 dark:text-stone-500 dark:hover:text-white  dark:bg-slate-900 dark:hover:border-white ${
+            lastClickedButton === 1
+              ? "border-slate-400 border-2 dark:border-stone-300"
+              : ""
+          }`}
           onClick={() => handleClick(1)}
         >
           24 hours
         </button>
         <div className="w-4"></div>
         <button
-          className="flex-grow bg-stone-200 bg-transparent   hover:bg-slate-900 text-slate-700  hover:text-white border border-stone-400 hover:border-transparent  dark:border-stone-700 dark:text-stone-500"
+          className={`flex-grow bg-stone-200  shadow-md hover:bg-slate-900 text-stone-500  hover:text-white border border-stone-200 hover:border-transparent  dark:border-stone-700 dark:text-stone-500 dark:hover:text-white  dark:bg-slate-900 dark:hover:border-white ${
+            lastClickedButton === 7
+              ? "border-slate-400 border-2 dark:border-stone-300"
+              : ""
+          }`}
           onClick={() => handleClick(7)}
         >
           7 days
         </button>
         <div className="w-4"></div>
         <button
-          className="flex-grow bg-stone-200 bg-transparent  shadow-md  hover:bg-slate-900 text-slate-700 border hover:text-white border  border-stone-400 hover:border-transparent  dark:border-stone-700 dark:text-stone-500"
+          className={`flex-grow bg-stone-200 bg-transparent  shadow-md  hover:bg-stone-900 text-slate-500 border hover:text-white border  border-stone-200 hover:border-transparent  dark:border-stone-700 dark:text-stone-500 dark:hover:text-white  dark:bg-slate-900 dark:hover:border-white ${
+            lastClickedButton === 30
+              ? "border-slate-400 border-2 dark:border-stone-300"
+              : ""
+          }`}
           onClick={() => handleClick(30)}
         >
           1 month
         </button>
         <div className="w-4"></div>
         <button
-          className="flex-grow bg-stone-200 bg-transparent shadow-sm   hover:bg-slate-900 text-slate-700  border hover:text-white border border-stone-400 hover:border-transparent  dark:border-stone-700 dark:text-stone-500"
+          className={`flex-grow bg-stone-200 bg-transparent shadow-sm   hover:bg-slate-900 text-stone-500  border hover:text-white border border-stone-200 hover:border-transparent  dark:border-stone-700 dark:text-stone-500 dark:hover:text-white  dark:bg-slate-900 dark:hover:border-white ${
+            lastClickedButton === 365
+              ? "border-slate-400 border-2 dark:border-stone-300"
+              : ""
+          }`}
           onClick={() => handleClick(365)}
         >
           1 year
         </button>
       </div>
-      <h1 className="text-yellow-500">Price (AU$)</h1>
+      <h1 className="text-amber-500">Price (AU$)</h1>
 
       <ResponsiveContainer width="100%" height={200}>
         <AreaChart
@@ -215,15 +230,12 @@ export function SyncChart() {
           <Brush
             dataKey="date"
             height={25}
-            startIndex={15}
-            travellerWidth={10}
-            // stroke="gray"
+            startIndex={5}
+            travellerWidth={5}
             fill="#E5E5E5"
-            gap={1}
-            // x={value}
-            // onChange={(brush) => handleBrushChange(brush)}
-            // onChange={handleSliderChange}
+            endIndex={chartData.length - 1}
           />
+
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
           <YAxis
@@ -250,7 +262,7 @@ export function SyncChart() {
           />
         </AreaChart>
       </ResponsiveContainer>
-      <h1 className="text-yellow-500">Market Caps (AU$)</h1>
+      <h1 className="text-amber-500 ">Market Caps (AU$)</h1>
 
       <ResponsiveContainer width="100%" height={200}>
         <AreaChart
@@ -301,7 +313,7 @@ export function SyncChart() {
           />
         </AreaChart>
       </ResponsiveContainer>
-      <h1 className="text-yellow-500">Total Volume (AU$)</h1>
+      <h1 className="text-amber-500">Total Volume (AU$)</h1>
       <ResponsiveContainer width="100%" height={200}>
         <AreaChart
           width={500}
