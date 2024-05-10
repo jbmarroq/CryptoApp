@@ -154,9 +154,9 @@ export function SyncChart() {
     >
       <div className="flex justify-between w-full mb-4">
         <button
-          className={`flex-grow bg-stone-200 shadow-md hover:bg-slate-900 text-stone-500  hover:text-white py-0  border border-stone-200 hover:border-transparent dark:border-stone-700 dark:text-stone-500 dark:hover:text-white  dark:bg-slate-900 dark:hover:border-white ${
+          className={`flex-grow bg-stone-200 shadow-md hover:bg-slate-900 text-stone-500 border hover:text-white border border-stone-200 hover:border-transparent dark:border-stone-700 dark:text-stone-500 dark:hover:text-white  dark:bg-slate-900 dark:hover:border-white ${
             lastClickedButton === 1
-              ? "border-slate-400 border-2 dark:border-stone-300"
+              ? "border-2 border-slate-400 border-2 dark:border-stone-200"
               : ""
           }`}
           onClick={() => handleClick(1)}
@@ -165,9 +165,9 @@ export function SyncChart() {
         </button>
         <div className="w-4"></div>
         <button
-          className={`flex-grow bg-stone-200  shadow-md hover:bg-slate-900 text-stone-500  hover:text-white border border-stone-200 hover:border-transparent  dark:border-stone-700 dark:text-stone-500 dark:hover:text-white  dark:bg-slate-900 dark:hover:border-white ${
+          className={`flex-grow bg-stone-200  shadow-md hover:bg-slate-900 text-stone-500 border hover:text-white border border-stone-200 hover:border-transparent  dark:border-stone-700 dark:text-stone-500 dark:hover:text-white  dark:bg-slate-900 dark:hover:border-white ${
             lastClickedButton === 7
-              ? "border-slate-400 border-2 dark:border-stone-300"
+              ? "border-2 border-slate-400 border-2 dark:border-stone-200"
               : ""
           }`}
           onClick={() => handleClick(7)}
@@ -176,9 +176,9 @@ export function SyncChart() {
         </button>
         <div className="w-4"></div>
         <button
-          className={`flex-grow bg-stone-200 bg-transparent  shadow-md  hover:bg-stone-900 text-slate-500 border hover:text-white border  border-stone-200 hover:border-transparent  dark:border-stone-700 dark:text-stone-500 dark:hover:text-white  dark:bg-slate-900 dark:hover:border-white ${
+          className={`flex-grow bg-stone-200 shadow-md  hover:bg-stone-900 text-stone-500 border hover:text-white border  border-stone-200 hover:border-transparent  dark:border-stone-700 dark:text-stone-500 dark:hover:text-white  dark:bg-slate-900 dark:hover:border-white ${
             lastClickedButton === 30
-              ? "border-slate-400 border-2 dark:border-stone-300"
+              ? "border-2 border-slate-400  dark:border-stone-200"
               : ""
           }`}
           onClick={() => handleClick(30)}
@@ -187,9 +187,9 @@ export function SyncChart() {
         </button>
         <div className="w-4"></div>
         <button
-          className={`flex-grow bg-stone-200 bg-transparent shadow-sm   hover:bg-slate-900 text-stone-500  border hover:text-white border border-stone-200 hover:border-transparent  dark:border-stone-700 dark:text-stone-500 dark:hover:text-white  dark:bg-slate-900 dark:hover:border-white ${
+          className={`flex-grow bg-stone-200 shadow-md   hover:bg-slate-900 text-stone-500  border hover:text-white border border-stone-200 hover:border-transparent  dark:border-stone-700 dark:text-stone-500 dark:hover:text-white  dark:bg-slate-900 dark:hover:border-white ${
             lastClickedButton === 365
-              ? "border-slate-400 border-2 dark:border-stone-300"
+              ? "border-2 border-slate-400  dark:border-stone-200"
               : ""
           }`}
           onClick={() => handleClick(365)}

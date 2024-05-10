@@ -75,7 +75,7 @@ export default function CoinDetails() {
     <>
       <div className="p-1">
         <Link href={"/coins"}>
-          <button className="bg-transparent shadow-xl p-2 rounded-full hover:bg-slate-900 text-slate-700  hover:text-white py-2 px-4 border border-slate-300 hover:border-transparent rounded dark:border-stone-700 dark:text-stone-500">
+          <button className="bg-transparent shadow-xl p-2  hover:bg-slate-900 text-slate-700  hover:text-white py-2 px-4 border border-slate-300 hover:border-transparent rounded dark:border-stone-700 dark:text-stone-500">
             Back To Coins
           </button>
         </Link>
