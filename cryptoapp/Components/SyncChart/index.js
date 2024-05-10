@@ -3,7 +3,7 @@ import useSWR from "swr";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { GECKO_API_KEY } from "@/Config/CoinGeckoAPI";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "../ui/skeleton";
 import {
   LinearGradient,
   stop,
@@ -85,37 +85,28 @@ export function SyncChart() {
   };
 
   if (error) return <div>Failed to load coinHistory</div>;
-  if (isLoading) return;
-  <div>
-    <Skeleton
-      sx={{ bgcolor: "grey.700" }}
-      animation="wave"
-      variant="rounded"
-      width="100%"
-      height={250}
-    />
-    <Skeleton
-      sx={{ bgcolor: "grey.800" }}
-      animation="wave"
-      variant="rounded"
-      width="100%"
-      height={250}
-    />
-    <Skeleton
-      sx={{ bgcolor: "grey.700" }}
-      animation="wave"
-      variant="rounded"
-      width="100%"
-      height={250}
-    />
-  </div>;
+  if (isLoading)
+    return (
+      <div className="border bg-stone-300 dark:border dark:border-stone-700 dark:bg-slate-950 rounded-md p-4">
+        <div className="flex justify-between w-full mb-4">
+          <Skeleton className="h-10 w-64 mr-2" />
+          <Skeleton className="h-10 w-64 mr-2" />
+          <Skeleton className="h-10 w-64 mr-2" />
+          <Skeleton className="h-10 w-64" />
+        </div>
+        <Skeleton className="h-48 w-full mb-4" />
+        <Skeleton className="h-12 w-full mb-4" />
+        <Skeleton className="h-48 w-full mb-4" />
+        <Skeleton className="h-48 w-full" />
+      </div>
+    );
 
   //   const handleBrushChange = (value) => {
   //     const { startIndex, endIndex } = value;
 
   //     console.log("currentIndex", startIndex);
   //     console.log("endIndex", endIndex);
-  //     if (startIndex >= 2136 && !didUpdateAgain) {
+  //     if (startIndex >= 2148 && !didUpdateAgain) {
   //       //assuming fetch returns 365 datapoints
   //       setDays(1);
   //       mutate(
@@ -206,7 +197,7 @@ export function SyncChart() {
           1 year
         </button>
       </div>
-      <h1 className="text-amber-500">Price (AU$)</h1>
+      <h1 className="text-md md:text-xl dark:text-amber-500">Price (AU$)</h1>
 
       <ResponsiveContainer width="100%" height={200}>
         <AreaChart
@@ -262,7 +253,9 @@ export function SyncChart() {
           />
         </AreaChart>
       </ResponsiveContainer>
-      <h1 className="text-amber-500 ">Market Caps (AU$)</h1>
+      <h1 className="text-md md:text-xl dark:text-amber-500">
+        Market Caps (AU$)
+      </h1>
 
       <ResponsiveContainer width="100%" height={200}>
         <AreaChart
@@ -313,7 +306,9 @@ export function SyncChart() {
           />
         </AreaChart>
       </ResponsiveContainer>
-      <h1 className="text-amber-500">Total Volume (AU$)</h1>
+      <h1 className="text-md md:text-xl  dark:text-amber-500">
+        Total Volume (AU$)
+      </h1>
       <ResponsiveContainer width="100%" height={200}>
         <AreaChart
           width={500}

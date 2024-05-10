@@ -4,8 +4,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import Link from "next/link";
 import { SyncChart } from "@/Components/SyncChart";
-import { Skeleton } from "@/components/ui/skeleton";
-
+import { Skeleton } from "@/Components/ui/skeleton";
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -43,55 +42,29 @@ export default function CoinDetails() {
     return (
       <>
         <div className="p-1">
-          <Link href={"/coins"}>
-            <button className="bg-transparent shadow-xl p-2 rounded-full hover:bg-slate-900 text-slate-700  hover:text-white py-2 px-4 border border-slate-300 hover:border-transparent rounded dark:border-stone-700 dark:text-stone-500">
-              Back To Coins
-            </button>
-          </Link>
+          <Skeleton className="h-16 w-64 rounded-full" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-1">
-          <div className="bg-slate-100 col-span-1 border rounded-md p-4  dark:border-stone-700 dark:bg-slate-950">
+          <div className="col-span-1 border rounded-md p-4">
             <div className="flex flex-col items-center justify-center">
-              <Skeleton />
-              <h1 className="scroll-m-20  pb-2 text-2xl md:text-4xl font-semibold tracking-tight first:mt-0 ">
-                <Skeleton />
-              </h1>
-              <p className="scroll-m-20 text-stone-500 border-b pb-2 text-sm md:text-md  tracking-tight first:mt-0 dark:border-stone-700">
-                Genesis Date: <Skeleton />
-              </p>
+              <Skeleton className="h-36 w-36 rounded-full" />
+              <Skeleton className="h-12 w-64 mt-6" />
+              <Skeleton className="h-8 w-48 mt-4" />
             </div>
 
-            <div className="mb-4">
-              <p className="flex items-center">
-                <span className="text-md md:text-xl  font-semibold">Rank:</span>
-                <span className="text-md md:text-xl  ml-2 ">
-                  <Skeleton />
-                </span>
-              </p>
-              <p className="flex items-center">
-                <span className="text-md md:text-xl font-semibold">
-                  Current Price:
-                </span>
-                <span className="text-md md:text-xl ml-2">
-                  AU$ <Skeleton />
-                </span>
-              </p>
-              <p className="flex items-center">
-                <span className="text-md md:text-xl font-semibold">
-                  Market Cap:
-                </span>
-                <span className="text-md md:text-xl ml-2">
-                  AU$ <Skeleton />M
-                </span>
-              </p>
+            <div className="mt-12">
+              <Skeleton className="h-8 w-40 mb-4" />
+              <Skeleton className="h-8 w-64 mb-4" />
+              <Skeleton className="h-8 w-72 mb-4" />
+              <Skeleton className="h-8 w-80 mb-4" />
+              <Skeleton className="h-8 w-96 mb-6" />
+              <Skeleton className="h-6 w-full mb-4" />
+              <Skeleton className="h-6 w-full mb-4" />
+              <Skeleton className="h-6 w-full mb-4" />
             </div>
-            <p className="text-secondary text-justify dark:text-stone-400">
-              <Skeleton />
-            </p>
-            <div></div>
           </div>
           <div className="col-span-2">
-            <Skeleton />
+            <Skeleton className="h-96 w-full" />
           </div>
         </div>
       </>
@@ -128,16 +101,18 @@ export default function CoinDetails() {
 
           <div className="mb-4">
             <p className="flex items-center">
-              <span className="text-md md:text-xl  font-semibold">Rank:</span>
-              <span className="text-md md:text-xl  ml-2 ">
+              <span className="text-md md:text-xl  font-semibold dark:text-amber-500">
+                Rank:
+              </span>
+              <span className="text-md md:text-xl  ml-2 dark:text-amber-300">
                 {numberWithCommas(coinInfo?.market_data.market_cap_rank)}
               </span>
             </p>
             <p className="flex items-center">
-              <span className="text-md md:text-xl font-semibold">
+              <span className="text-md md:text-xl font-semibold dark:text-amber-500">
                 Current Price:
               </span>
-              <span className="text-md md:text-xl ml-2">
+              <span className="text-md md:text-xl ml-2 dark:text-amber-300">
                 AU${" "}
                 {numberWithCommas(
                   coinInfo?.market_data.current_price.aud.toFixed(2)
@@ -145,10 +120,10 @@ export default function CoinDetails() {
               </span>
             </p>
             <p className="flex items-center">
-              <span className="text-md md:text-xl font-semibold">
+              <span className="text-md md:text-xl font-semibold dark:text-amber-500">
                 Market Cap:
               </span>
-              <span className="text-md md:text-xl ml-2">
+              <span className="text-md md:text-xl ml-2 dark:text-amber-300">
                 AU${" "}
                 {numberWithCommas(
                   coinInfo?.market_data.market_cap.aud.toFixed(2)
