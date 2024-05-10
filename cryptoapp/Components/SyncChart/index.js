@@ -148,13 +148,10 @@ export function SyncChart() {
 
   console.log("DisplayedData:", chartData);
   return (
-    <div
-      className="border bg-slate-100 dark:border dark:border-stone-700 dark:bg-slate-950 rounded-md p-4  "
-      //   style={{ border: "1px solid pink", padding: "10px", borderRadius: "5px" }}
-    >
+    <div className="border bg-slate-100 dark:border dark:border-stone-700 dark:bg-slate-950 rounded-md p-4  ">
       <div className="flex justify-between w-full mb-4">
         <button
-          className={`flex-grow bg-stone-200 shadow-md hover:bg-slate-900 text-stone-500 border hover:text-white border border-stone-200 hover:border-transparent dark:border-stone-700 dark:text-stone-500 dark:hover:text-white  dark:bg-slate-900 dark:hover:border-white ${
+          className={`flex-grow bg-stone-200 shadow-md hover:bg-slate-900 text-stone-500 border border-stone-200 hover:text-white  hover:border-transparent dark:border-stone-700 dark:text-stone-500 dark:hover:text-white  dark:bg-slate-900 dark:hover:border-white ${
             lastClickedButton === 1
               ? "border-2 border-slate-400 border-2 dark:border-stone-200"
               : ""
@@ -165,7 +162,7 @@ export function SyncChart() {
         </button>
         <div className="w-4"></div>
         <button
-          className={`flex-grow bg-stone-200  shadow-md hover:bg-slate-900 text-stone-500 border hover:text-white border border-stone-200 hover:border-transparent  dark:border-stone-700 dark:text-stone-500 dark:hover:text-white  dark:bg-slate-900 dark:hover:border-white ${
+          className={`flex-grow bg-stone-200  shadow-md hover:bg-slate-900 text-stone-500 border border-stone-200 hover:text-white  hover:border-transparent  dark:border-stone-700 dark:text-stone-500 dark:hover:text-white  dark:bg-slate-900 dark:hover:border-white ${
             lastClickedButton === 7
               ? "border-2 border-slate-400 border-2 dark:border-stone-200"
               : ""
@@ -176,7 +173,7 @@ export function SyncChart() {
         </button>
         <div className="w-4"></div>
         <button
-          className={`flex-grow bg-stone-200 shadow-md  hover:bg-stone-900 text-stone-500 border hover:text-white border  border-stone-200 hover:border-transparent  dark:border-stone-700 dark:text-stone-500 dark:hover:text-white  dark:bg-slate-900 dark:hover:border-white ${
+          className={`flex-grow bg-stone-200 shadow-md  hover:bg-stone-900 text-stone-500 border  border-stone-200 hover:text-white  hover:border-transparent  dark:border-stone-700 dark:text-stone-500 dark:hover:text-white  dark:bg-slate-900 dark:hover:border-white ${
             lastClickedButton === 30
               ? "border-2 border-slate-400  dark:border-stone-200"
               : ""
