@@ -1,8 +1,3 @@
-// import {
-//   flexRender,
-//   getCoreRowModel,
-//   useReactTable,
-// } from "@tanstack/react-table";
 import { GECKO_API_KEY } from "@/Config/CoinGeckoAPI";
 import { useRouter } from "next/router";
 import useSWR from "swr";

@@ -7,6 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
+import { Skeleton } from "../ui/skeleton";
 import Autoplay from "embla-carousel-autoplay";
 import { GECKO_API_KEY } from "@/Config/CoinGeckoAPI";
 import Link from "next/link";
@@ -23,11 +24,24 @@ export function EmblaCarousel() {
 
   const URL = `https://api.coingecko.com/api/v3/search/trending`;
 
-  const { data: trendingCoinsData, error, mutate } = useSWR(URL, fetcher);
+  const {
+    data: trendingCoinsData,
+    error,
+    isLoading,
+    mutate,
+  } = useSWR(URL, fetcher);
 
   console.log("TrendingCoinsData : ", trendingCoinsData);
   if (error) return <div>Failed to load coins</div>;
-  if (!trendingCoinsData) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="flex justify-between w-full mb-4">
+        <Skeleton className="h-10 w-64 mr-2" />
+        <Skeleton className="h-10 w-64 mr-2" />
+        <Skeleton className="h-10 w-64 mr-2" />
+        <Skeleton className="h-10 w-64" />
+      </div>
+    );
 
   const coinsToDisplay = trendingCoinsData.coins;
 
