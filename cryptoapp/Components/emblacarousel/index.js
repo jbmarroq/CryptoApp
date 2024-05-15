@@ -7,8 +7,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
+import { Skeleton } from "../ui/skeleton";
 import Autoplay from "embla-carousel-autoplay";
 import { GECKO_API_KEY } from "@/Config/CoinGeckoAPI";
+import Link from "next/link";
 
 export function EmblaCarousel() {
   const aud = "aud";
@@ -22,11 +24,24 @@ export function EmblaCarousel() {
 
   const URL = `https://api.coingecko.com/api/v3/search/trending`;
 
-  const { data: trendingCoinsData, error, mutate } = useSWR(URL, fetcher);
+  const {
+    data: trendingCoinsData,
+    error,
+    isLoading,
+    mutate,
+  } = useSWR(URL, fetcher);
 
   console.log("TrendingCoinsData : ", trendingCoinsData);
   if (error) return <div>Failed to load coins</div>;
-  if (!trendingCoinsData) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="flex justify-between w-full mb-4">
+        <Skeleton className="h-10 w-64 mr-2" />
+        <Skeleton className="h-10 w-64 mr-2" />
+        <Skeleton className="h-10 w-64 mr-2" />
+        <Skeleton className="h-10 w-64" />
+      </div>
+    );
 
   const coinsToDisplay = trendingCoinsData.coins;
 
@@ -58,13 +73,15 @@ export function EmblaCarousel() {
               <Card className="bg-slate-100 dark:bg-slate-950 dark:border-stone-700">
                 <CardContent className="flex aspect-rectangular items-center justify-center p-1">
                   {/* flex aspect-rectangular items-center justify-center p-1 */}
-                  <img
-                    src={coin.item.large}
-                    alt={coin.item.name}
-                    className="hover:bg-white shadow-lg transition-all  hover:scale-110 p-2 rounded-full mr-1 "
-                    height={100}
-                    width={100}
-                  />
+                  <Link href={`/coins/${coin.item.id}`}>
+                    <img
+                      src={coin.item.large}
+                      alt={coin.item.name}
+                      className="hover:bg-white shadow-lg transition-all  hover:scale-110 p-2 rounded-full mr-1 "
+                      height={100}
+                      width={100}
+                    />
+                  </Link>
                   <div className="text-center mr-3 text-sm tracking-tight">
                     <p>{coin.item.symbol.toUpperCase()}</p>
 

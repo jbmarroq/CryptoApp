@@ -4,6 +4,7 @@ import { GECKO_API_KEY } from "@/Config/CoinGeckoAPI";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import { useState } from "react";
+import { Skeleton } from "../ui/skeleton";
 
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -47,12 +48,17 @@ export function CoinsDataTable() {
 
   const URL = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${aud}&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=24h`;
 
-  const { data: topCoins, error } = useSWR(URL, fetcher);
+  const { data: topCoins, error, isLoading } = useSWR(URL, fetcher);
 
   console.log("TopCoins : ", topCoins);
   console.log(error);
   if (error) return <div>Failed to load Top Coins</div>;
-  if (!topCoins) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="container mx-auto py-10">
+        <Skeleton className="h-96 w-full mb-4" />
+      </div>
+    );
 
   const filteredCoins = topCoins?.filter(
     (coin) =>

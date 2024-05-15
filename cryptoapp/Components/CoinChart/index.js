@@ -164,7 +164,7 @@ const formatDate = (timestamp) => {
   return date.toLocaleDateString(); // Adjust the format as needed
 };
 
-export function SyncChart() {
+export function SynChart() {
   const aud = "aud";
   const fetcher = (...args) =>
     fetch(...args, {
@@ -200,9 +200,9 @@ export function SyncChart() {
   }));
   console.log("chartdata:", chartData);
   return (
-    <div style={{ width: "100%" }}>
+    <div>
       <h4>A demo of synchronized AreaCharts</h4>
-      <ResponsiveContainer width="100%" height={200}>
+      <ResponsiveContainer>
         <LineChart
           width={500}
           height={200}
