@@ -38,6 +38,19 @@ export function SyncChart() {
   const [didUpdateChartData, setDidUpdateChartData] = useState(false);
   const [didUpdateAgain, setDidUpdateAgain] = useState(false);
   const [lastClickedButton, setLastClickedButton] = useState(1);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const router = useRouter();
   const { CoinID } = router.query;
@@ -204,8 +217,8 @@ export function SyncChart() {
           syncId="anyId"
           margin={{
             top: 10,
-            right: 90,
-            left: 90,
+            right: windowWidth < 768 ? 0 : 90,
+            left: windowWidth < 768 ? 0 : 90,
             bottom: 0,
           }}
         >
@@ -262,8 +275,8 @@ export function SyncChart() {
           syncId="anyId"
           margin={{
             top: 10,
-            right: 90,
-            left: 90,
+            right: windowWidth < 768 ? 0 : 90,
+            left: windowWidth < 768 ? 0 : 90,
             bottom: 0,
           }}
         >
@@ -314,8 +327,8 @@ export function SyncChart() {
           syncId="anyId"
           margin={{
             top: 10,
-            right: 90,
-            left: 90,
+            right: windowWidth < 768 ? 0 : 90,
+            left: windowWidth < 768 ? 0 : 90,
             bottom: 0,
           }}
         >
