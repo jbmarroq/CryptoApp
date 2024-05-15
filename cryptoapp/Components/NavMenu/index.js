@@ -79,7 +79,7 @@ const elements = [
 
 export function NavMenu() {
   return (
-    <NavigationMenu className="flex items-center gap-4 text-sm lg:gap-6 mr-4 hidden md:flex">
+    <NavigationMenu className="flex items-center gap-4 text-sm lg:gap-6 mr-4 hidden md:flex  ml-auto">
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger className="bg-transparent dark:bg-transparent">
