@@ -5,6 +5,7 @@ import useSWR from "swr";
 import Link from "next/link";
 import { SyncChart } from "@/Components/SyncChart";
 import { Skeleton } from "@/Components/ui/skeleton";
+import { ModeToggle } from "@/Components/ToggleMode/ModeToggle";
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -73,12 +74,13 @@ export default function CoinDetails() {
 
   return (
     <>
-      <div className="p-1">
+      <div className="p-1 flex items-center justify-between md:px-6">
         <Link href={"/coins"}>
-          <button className="bg-transparent shadow-xl p-2  hover:bg-slate-900 text-slate-700  hover:text-white py-2 px-4 border border-slate-300 hover:border-transparent rounded dark:border-stone-700 dark:text-stone-500">
-            Back To Coins
+          <button className="bg-transparent hover:bg-slate-900  hover:text-white py-2 px-4 border  hover:border-transparent rounded dark:border-slate-700 dark:text-stone-500">
+            Back to Coins
           </button>
         </Link>
+        <ModeToggle />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-1">
         <div className="bg-slate-100 col-span-1 border rounded-md p-4  dark:border-stone-700 dark:bg-slate-950">

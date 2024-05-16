@@ -3,7 +3,7 @@
 
 import { CoinsTable } from "../CoinTable/CoinTable";
 import { GECKO_API_KEY } from "@/Config/CoinGeckoAPI";
-
+import Link from "next/link";
 // import AddToQueueIcon from "@mui/icons-material/AddToQueue";
 
 import { useRouter } from "next/router";
@@ -20,13 +20,18 @@ import { MenuBar } from "../Menubar";
 export function CoinLibrary({}) {
   return (
     <>
-      <div className="sticky top-0 z-50 w-full border-transparent bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60  flex flex-wrap items-center justify-between dark:border-transparent md:px-6">
-        <NavMenu />
-        <MenuBar />
+      <div className="sticky p-1 top-0 z-50 w-full border-transparent bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60  flex flex-wrap items-center justify-between dark:border-transparent  md:px-6">
+        {/* <NavMenu />
+        <MenuBar /> */}
+        <Link href={"/"}>
+          <button className="bg-transparent text-stone-500 hover:bg-slate-900  hover:text-white py-2 px-4 border  hover:border-transparent rounded dark:border-slate-700 dark:text-stone-500">
+            Back to Guru
+          </button>
+        </Link>
         <ModeToggle />
       </div>
       {/* </div> */}
-      <h1 className="scroll-m-20 border-b pb-2  ml-0 md:ml-4 text-3xl font-semibold tracking-tight first:mt-0 dark:border-stone-700">
+      <h1 className="scroll-m-20 border-b pt-4 pb-2  ml-0 md:ml-4 text-3xl font-semibold tracking-tight first:mt-0 dark:border-stone-700">
         Trending Coins
       </h1>
 
